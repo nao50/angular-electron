@@ -1,13 +1,19 @@
 {
   "name": "angular-electron",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:electron": "ng build --base-href ./ && tsc -p tsconfig.electron.json && electron .",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron:build:mac": "npm run build:electron && node_modules/.bin/electron-builder build --mac --x64",
+    "electron:build:win": "npm run build:electron && node_modules/.bin/electron-builder build --win --x64",
+    "build:electron": "npm run electron:tsc && ng build --base-href ./",
+    "electron:tsc": "tsc -p tsconfig.electron.json"
   },
   "private": true,
   "dependencies": {
@@ -27,10 +33,12 @@
     "@angular-devkit/build-angular": "~0.1000.3",
     "@angular/cli": "~10.0.3",
     "@angular/compiler-cli": "~10.0.4",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "electron": "^9.2.0",
+    "electron-builder": "^22.8.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
